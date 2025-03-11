@@ -240,7 +240,7 @@ export default defineContentScript({
       [["ArrowLeft", "h"], () => moveToPrevPage()],
       [["g"], () => (isLeaderKeyActive = true)],
       [["/"], () => {
-        const searchInput = document.querySelector('input[name="q"]') as HTMLInputElement;
+        const searchInput = document.querySelector<HTMLInputElement>('textarea[name="q"]');
         if (searchInput) {
           searchInput.focus();
           return true;
