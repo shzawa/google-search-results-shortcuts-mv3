@@ -341,6 +341,15 @@ export default defineContentScript({
       formInputs.forEach((el) => {
         el.addEventListener("focusin", () => activateKeyHandler(false));
         el.addEventListener("focusout", () => activateKeyHandler(true));
+
+        // 検索ボックスでエスケープキーが押された時の処理を追加
+        el.addEventListener("keydown", (e: Event) => {
+          if (e instanceof KeyboardEvent && e.key === "Escape" && el instanceof HTMLElement) {
+            e.preventDefault();
+            (el).blur(); // フォーカスを外す
+            resetFocus(); // 最初の検索結果にフォーカスを移す
+          }
+        });
       });
 
       activateKeyHandler(true);
