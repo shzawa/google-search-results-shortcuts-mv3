@@ -223,10 +223,10 @@ export default defineContentScript({
   main() {
     // URLからクエリパラメータを取得
     const url = new URL(window.location.href);
-    const hasOq = url.searchParams.has('oq');
 
-    // oq={文字列}がない場合は拡張機能を初期化しない（すべてタブ以外では動作しない）
-    if (!hasOq) {
+    // "すべて" タブ以外では動作させない
+    const hasUDM = url.searchParams.has('udm');
+    if (hasUDM) {
       console.log('Google Search Results Shortcuts disabled: Not on the "All" tab');
       return;
     }
